@@ -1,0 +1,287 @@
+<style>
+.page {
+width:950px;
+margin:20px auto;
+font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
+position: relative;
+font-size:16px;
+line-height:1.3em;
+}
+
+.body { 
+margin: 0px;
+padding: 0px;
+align: top; }
+
+.axis text {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.bar {
+  fill: steelblue;
+  fill-opacity: .9;
+}
+
+.x.axis path {
+  display: none;
+}
+
+label {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+path {
+  stroke-linejoin: round;
+}
+
+.land {
+  fill: #ddd;
+}
+
+.states {
+  fill: none;
+  stroke: #fff;
+  stroke-width:2px;
+}
+
+.voronoi {
+  fill: none;
+  stroke: brown;
+  stroke-width: .5px;
+}
+
+.intro {
+width: 200px;
+margin-right: 25px;
+float: left;
+}
+
+.map{
+width: 700px;
+float: left;
+height: 600px;
+}
+
+.title {
+	font-family: Oswald,Arial,sans-serif;
+	color: #333;
+	font-weight: bold;
+	font-size: 2.5em;
+	line-height: 120%
+}
+
+.map-container {
+display:inline-block;
+}
+</style>
+
+
+<div class="page">
+
+<h1 class="title">Natural Gas Pipeline Leaks Since 1984</h1>
+<div class="map-container">
+	<div class="intro">
+		<p>Last year in Pennsylvania, 10,000 miles of new pipeline were laid. Of these, 9,200 will never be inspected or regulated by state and federal authorities even though they operate at much the same pressures, if not higher, as regulated pipelines, are mainly laid underground and are constructed of the same materials as the average transmission pipeline.</p> 
+		<p>  And since the Pipeline and Hazardous Materials Safety Administration does not require that gathering pipelines be inspected at the time of construction or that pipeline operators provide regular maintenance reports, officials are clueless about their current condition.</p>
+	</div>
+	<object align="top">
+	<div class="map">
+	</div> 
+</div>
+
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3js.org/queue.v1.min.js"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+<script>
+var width = 950,
+    height = 600;
+
+var projection = d3.geo.albers();
+
+var path = d3.geo.path()
+    .projection(projection)
+    .pointRadius(1.9);
+
+var svg = d3.select(".map").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+queue()
+    .defer(d3.json, "us.json")
+    .defer(d3.tsv, "readme-airports.tsv")
+    .await(ready);
+
+function ready(error, us, airports) {
+  svg.append("path")
+      .datum(topojson.feature(us, us.objects.land))
+      .attr("class", "land")
+      .attr("d", path);
+
+  svg.append("path")
+      .datum(topojson.mesh(us, us.objects.states, function(a, b) { return a !== b; }))
+      .attr("class", "states")
+      .attr("d", path);
+
+  svg.append("path")
+      .datum({type: "MultiPoint", coordinates: airports})
+      .attr("class", "points")
+      .attr("d", path);
+
+  // svg.append("path")
+//       .datum(d3.geom.voronoi(airports.map(projection)))
+//       .attr("class", "voronoi")
+//       .attr("d", function(d) { return "M" + d.map(function(d) { return d.join("L"); }).join("ZM") + "Z"; });
+}
+
+</script> 
+
+<div class="bar-chart">
+<h2> Fatalities and Injuries </h2>
+<p> BLAH BLAH </p>
+</div>
+
+<div id="viz"></div>
+ 
+        <script type="text/javascript">
+            
+            var w = 950,
+            h = 600
+ 
+            // create canvas
+            var svg = d3.select("#viz").append("svg:svg")
+            .attr("class", "chart")
+            .attr("width", w)
+            .attr("height", h )
+            .append("svg:g")
+            .attr("transform", "translate(10,470)");
+           
+ 
+            x = d3.scale.ordinal().rangeRoundBands([0, w-50])
+            y = d3.scale.linear().range([0, h-50])
+            z = d3.scale.ordinal().range(["darkblue", "lightblue"])
+ 
+            console.log("RAW MATRIX---------------------------");
+	    // 4 columns: ID,c1,c2
+            var matrix = [
+[1,12,2],
+[2,40,16],
+[3,16,5],
+[4,48,11],
+[5,96,25],
+[6,46,1],
+[7,21,8],
+[8,6,1],
+[9,5,0],
+[10,15,6],
+[11,39,6],
+[12,2,0],
+[13,18,10],
+[14,3,0],
+[15,92,15],
+[16,50,13],
+[17,41,6],
+[18,21,5],
+[19,51,7],
+[20,35,8],
+[21,35,4],
+[22,0,0],
+[23,69,21],
+[24,32,11],
+[25,32,9],
+[26,31,17],
+[27,11,2],
+[28,45,3],
+[29,7,1],
+[30,21,5],
+[31,0,0],
+[32,51,5],
+[33,25,4],
+[34,20,1],
+[35,99,25],
+[36,85,14],
+[37,22,9],
+[38,8,5],
+[39,133,39],
+[40,8,0],
+[41,14,0],
+[42,3,2],
+[43,40,2],
+[44,240,42],
+[45,15,3],
+[46,31,5],
+[47,1,2],
+[48,14,3],
+[49,52,13],
+[50,20,5],
+[51,5,2], 
+            ];
+            console.log(matrix)
+ 
+            console.log("REMAP---------------------------");
+            var remapped =["c1","c2"].map(function(dat,i){
+                return matrix.map(function(d,ii){
+                    return {x: ii, y: d[i+1] };
+                })
+            });
+            console.log(remapped)
+ 
+            console.log("LAYOUT---------------------------");
+            var stacked = d3.layout.stack()(remapped)
+            console.log(stacked)
+ 
+            x.domain(stacked[0].map(function(d) { return d.x; }));
+            y.domain([0, d3.max(stacked[stacked.length - 1], function(d) { return d.y0 + d.y; })]);
+
+  
+            // show the domains of the scales              
+            console.log("x.domain(): " + x.domain())
+            console.log("y.domain(): " + y.domain())
+            console.log("------------------------------------------------------------------");
+ 
+            // Add a group for each column.
+            var valgroup = svg.selectAll("g.valgroup")
+            .data(stacked)
+            .enter().append("svg:g")
+            .attr("class", "valgroup")
+            .style("fill", function(d, i) { return z(i); })
+            .style("stroke", function(d, i) { return d3.rgb(z(i)).darker(); });
+ 
+            // Add a rect for each date.
+            var rect = valgroup.selectAll("rect")
+            .data(function(d){return d;})
+            .enter().append("svg:rect")
+            .attr("x", function(d) { return x(d.x); })
+            .attr("y", function(d) { return -y(d.y0) - y(d.y); })
+            .attr("height", function(d) { return y(d.y); })
+            .attr("width", x.rangeBand());
+            
+            var x = d3.scale.linear()
+			.domain([0, 20])
+			.range([0, width]);
+
+			var y = d3.scale.linear()
+			.domain([0,100])
+			.range([height,0]);
+            
+            var xAxis = d3.svg.axis()
+			.scale(x)
+			.orient("bottom");
+            
+            var yAxis = d3.svg.axis()
+			.scale(y)
+			.orient("left");
+ 
+        </script>
+
+
+
+</div>
