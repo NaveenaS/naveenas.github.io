@@ -21,8 +21,16 @@
 	font-size: 2em;
 	line-height: 130%;
 	color: #024C68;
-	padding-top: 25px;
-	padding-bottom: 10px;
+	padding-top: 30px;
+	padding-bottom: 15px;
+	
+	}
+.subtitle0 {
+	font-family: Oswald,Arial,sans-serif;
+	font-weight: bold;
+	font-size: 2em;
+	line-height: 130%;
+	color: #024C68;
 	
 	}
  
@@ -80,7 +88,9 @@ path {
 }
  
 .map {
+  margin-top: 30px;
   width: 650px;
+  height: 500px;
   float: left;
   overflow: hidden;
 }
@@ -115,8 +125,6 @@ display:inline-block;
   	top: 120px;
   	right: 300px;
 }
-
-
  
 .map-legend-text{
 	position: absolute;
@@ -125,6 +133,37 @@ display:inline-block;
   	right: 50px;
   	font: 9em;
   	}
+  	
+.secondcont{
+	width:1000px;
+}
+
+.stately-map{
+	width:600px;
+	margin-right: 25px;
+  	float: left;
+}
+
+.box{	
+	width:400px;
+  	margin-right: 30px;
+  	margin-top: 240px;
+  	border-style:solid;
+  	border-color: #015666;
+	border-width:5px;
+	padding-top:3px;
+	padding-bottom:5px;
+	padding-right:10px;
+	padding-left:10px;
+	float: left;
+  	overflow: hidden;
+}
+.header {
+ 	font-size: 1.1em;
+ 	color: 015666; 
+ 	padding: 0px;
+ 	}
+
 
 </style>
 <html> 
@@ -143,8 +182,7 @@ display:inline-block;
   	<div class="map-legend-text"> represents one pipeline leak </div> 
   	</div>
   	</div>
-  	<p>Handling the safety and integrity risks associated with this unprecedented growth in pipelines falls into the hands of PHMSA and state regulatory bodies like the Public Utilities Commission. But each state has different standards and often due to budget restrictions, they are understaffed. As a result, whether these bodies are prepared for the infrastructure requirements of the natural gas boom is debatable. </p> 
-  		
+  	Handling the safety and integrity risks associated with this unprecedented growth in pipelines falls into the hands of PHMSA and state regulatory bodies like the Public Utilities Commission. But each state has different standards and often due to budget restrictions, they are understaffed. As a result, whether these bodies are prepared for the infrastructure requirements of the natural gas boom is debatable.  	
   </div>
  
   
@@ -156,12 +194,7 @@ display:inline-block;
  
  
 <script>
- 
-// ---------------------------------
-// this code is for your top map
-// ---------------------------------
- 
- 
+
 var width = 650,
     height = 520;
  
@@ -204,7 +237,7 @@ function ready(error, us, airports) {
 </script>
 
 <div class="bar-chart">
-    <h2 class="subtitle">Fatalities and Injuries</h2>
+    <h2 class="subtitle0">Fatalities and Injuries</h2>
     <p>Since 1984 there have been 432 deaths and 1871 injuries related to natural gas leaks. These fatalities and injuries usually occur when gas escapes from the pipeline, ignites and causes an explosion. The chart below shows Texas as having the most number of injuries but it should be noted that the state also has the most mileage of natural gas pipelines. </p>
     <div class="statesChart"></div>
     <div style="padding-top:25px;">
@@ -212,11 +245,12 @@ function ready(error, us, airports) {
 </div> </div>
 
 
+<div class="stately-map" 
 <link rel="stylesheet" href="screen.css?v=1.0">
 <link rel="stylesheet" href="stately.css?v=1.0">
 
 <div class='wax-legend'>
-<div class='subtitle'>Leaks by State</div>
+<div class='subtitle'>Pipeline Leaks by State</div>
 <div class='legend-scale'>
   <ul class='legend-labels'>
     <li><span style='background:#62b1d0;'></span>0-10</li>
@@ -227,7 +261,7 @@ function ready(error, us, airports) {
   </ul>
 </div>
 <div id='label-des'>
-<p> spills per 10,000 miles of pipeline </p> </div>
+<p> leaks per 10,000 miles of pipeline </p> </div>
 <div class='legend-source'>Source: <a href="http://primis.phmsa.dot.gov/comm/reports/safety/sida.html?nocache=1018">Pipeline and Hazardous Materials Safety Administration</a></div>
 </div>
 
@@ -284,7 +318,20 @@ function ready(error, us, airports) {
 		<li data-state="wi" class="wi">x</li>
 		<li data-state="wy" class="wy">y</li>	
 	</ul>
- 
+</div> 
 </div>
  
+
+<div class="box">
+<div class="header">
+<h2> The Curious Case of Alaska </h2>  </div>
+ For every 10,000 miles of pipeline, Alaska has had 195 spills. When compared to the third highest state, Maryland, Alaska has three times as many leaks. Why? It's possible the extremely cold weather is causing an unusual number of fractures in the pipeline. Or the state's regulators are understaffed and have not been inspecting the pipelines diligently. </p>  
+ </div>
+
+
+</div>
+
+</div>
+
+
  </body> </html>
