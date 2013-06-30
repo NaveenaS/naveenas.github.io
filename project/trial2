@@ -1,0 +1,42 @@
+
+var svg2 = d3.select("#viz").append("svg")
+                                     .attr("width", 950)
+                                     .attr("height", 20);
+                                     
+
+
+var axisScale = d3.scale.linear()
+                        .domain([0, 900])
+                        .range([0, 950]);
+						
+//Create the Axis
+var xAxis = d3.svg.axis()
+                   .scale(axisScale);
+            
+                          
+
+//Create an SVG group Element for the Axis elements and call the xAxis function
+var xAxisGroup = svg2.append("g")
+                              .call(xAxis);
+                              
+
+var svg2 = d3.select("#viz").append("svg")
+                                     .attr("width", 50)
+                                     .attr("height",450);
+                                     
+
+
+var axisScale = d3.scale.linear()
+                        .domain([0, 900])
+                        .range([0, 950]);
+						
+//Create the Axis
+var yAxis = d3.svg.axis()
+                   .scale(axisScale);
+            
+                          
+
+//Create an SVG group Element for the Axis elements and call the xAxis function
+var yAxisGroup = svg2.append("g")
+                              .call(yAxis);
+}

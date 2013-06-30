@@ -1,287 +1,290 @@
 <style>
+
 .page {
-width:950px;
-margin:20px auto;
-font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
-position: relative;
-font-size:16px;
-line-height:1.3em;
+  width:1000px;
+  margin:0px auto;
+  font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
+  position: relative;
+  font-size:16px;
+  line-height:1.3em;
 }
 
-.body { 
-margin: 0px;
-padding: 0px;
-align: top; }
+ 
+.body {
+  margin: 0px;
+  padding: 0px;
+}
 
+.subtitle {
+	font-family: Oswald,Arial,sans-serif;
+	font-weight: bold;
+	font-size: 2em;
+	line-height: 130%;
+	color: #024C68;
+	padding-top: 25px;
+	padding-bottom: 10px;
+	
+	}
+ 
 .axis text {
   font: 10px sans-serif;
 }
-
+ 
 .axis path,
 .axis line {
   fill: none;
   stroke: #000;
   shape-rendering: crispEdges;
 }
-
+ 
 .bar {
   fill: steelblue;
   fill-opacity: .9;
 }
-
+ 
 .x.axis path {
   display: none;
 }
-
+ 
 label {
   position: absolute;
   top: 10px;
   right: 10px;
 }
 
+#label-des {
+	position: left;
+	padding-top: 35px;
+	padding-left:0px;
+}	
+ 
 path {
   stroke-linejoin: round;
 }
-
+ 
 .land {
-  fill: #ddd;
+  fill: #206876;
 }
-
+ 
 .states {
   fill: none;
   stroke: #fff;
-  stroke-width:2px;
+  stroke-width:2.5px;
 }
-
-.voronoi {
-  fill: none;
-  stroke: brown;
-  stroke-width: .5px;
-}
-
+ 
+ 
 .intro {
-width: 200px;
-margin-right: 25px;
-float: left;
+  width: 270px;
+  margin-right: 25px;
+  float: left;
 }
-
-.map{
-width: 700px;
-float: left;
-height: 600px;
+ 
+.map {
+  width: 650px;
+  float: left;
+  overflow: hidden;
 }
-
+ 
 .title {
-	font-family: Oswald,Arial,sans-serif;
-	color: #333;
+  font-family: Oswald,Arial,sans-serif;
+	color: #024C68;
 	font-weight: bold;
 	font-size: 2.5em;
 	line-height: 120%
 }
-
+ 
 .map-container {
 display:inline-block;
 }
+ 
+.byline {
+  color:#A61000;
+  font-weight: bold;
+  font-size:12px;
+  margin:3px 0;
+}
+
+.circle {
+	width: 10px;
+	height: 10px;
+	background: #bf3d30;
+	-moz-border-radius: 50px;
+	-webkit-border-radius: 50px;
+	border-radius: 50px;
+	position: absolute;
+  	top: 120px;
+  	right: 300px;
+}
+
+
+ 
+.map-legend-text{
+	position: absolute;
+  	top: 115px;
+  	left: 705px;
+  	right: 50px;
+  	font: 9em;
+  	}
+
 </style>
-
-
+<html> 
+<body> 
 <div class="page">
-
-<h1 class="title">Natural Gas Pipeline Leaks Since 1984</h1>
-<div class="map-container">
-	<div class="intro">
-		<p>Last year in Pennsylvania, 10,000 miles of new pipeline were laid. Of these, 9,200 will never be inspected or regulated by state and federal authorities even though they operate at much the same pressures, if not higher, as regulated pipelines, are mainly laid underground and are constructed of the same materials as the average transmission pipeline.</p> 
-		<p>  And since the Pipeline and Hazardous Materials Safety Administration does not require that gathering pipelines be inspected at the time of construction or that pipeline operators provide regular maintenance reports, officials are clueless about their current condition.</p>
-	</div>
-	<object align="top">
-	<div class="map">
-	</div> 
-</div>
-
+ 
+  <h1 class="title">Natural Gas Pipeline Leaks Since 1984</h1>
+  <h5 class="byline">By Naveena Sadasivam</h5>
+  <div class="map-container">
+  	<div class="intro">
+  		<p>Since 1984 the Pipeline and Hazardous Materials Safety Administration (PHMSA) has been filing incident reports every time there is a leak in a natural gas pipeline. Leaks occur due to a variety of factors &#8210; lax maintenance, internal or external corrosion, excavation activities, earthquakes and floods. </p>
+		<p>With the commercial viability of fracking and the discovery of vast shale gas reservoirs in U.S., the application for new inter and intra state transmission pipelines has risen dramatically. By 2030, experts predict that the demand for natural gas will rise by at least 12 percent. Correspondingly, pipeline infrastructure will also have to expand in order to move the gas from the wells to the market and experts estimate that under low-growth conditions, 35,000 miles of additional pipelines will be added the network.<p></div>
+  	<div class="map">
+  	<div class="map-legend">
+  	<div class="circle"></div>
+  	<div class="map-legend-text"> represents one pipeline leak </div> 
+  	</div>
+  	</div>
+  	<p>Handling the safety and integrity risks associated with this unprecedented growth in pipelines falls into the hands of PHMSA and state regulatory bodies like the Public Utilities Commission. But each state has different standards and often due to budget restrictions, they are understaffed. As a result, whether these bodies are prepared for the infrastructure requirements of the natural gas boom is debatable. </p> 
+  		
+  </div>
+ 
+  
+ 
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script src="http://d3js.org/queue.v1.min.js"></script>
 <script src="http://d3js.org/topojson.v1.min.js"></script>
+<script src="nyt-albers-usa.js"></script>
+ 
+ 
 <script>
-var width = 950,
-    height = 600;
-
-var projection = d3.geo.albers();
-
+ 
+// ---------------------------------
+// this code is for your top map
+// ---------------------------------
+ 
+ 
+var width = 650,
+    height = 520;
+ 
+var projection = nytAlbersUsa().translate([325, 230]).scale(860);
+// var projection = d3.geo.albers();
+ 
 var path = d3.geo.path()
     .projection(projection)
-    .pointRadius(1.9);
-
-var svg = d3.select(".map").append("svg")
+    .pointRadius(1.6)
+    
+    
+ 
+var svgMap = d3.select(".map").append("svg")
     .attr("width", width)
     .attr("height", height);
-
+ 
 queue()
     .defer(d3.json, "us.json")
     .defer(d3.tsv, "readme-airports.tsv")
     .await(ready);
-
+ 
 function ready(error, us, airports) {
-  svg.append("path")
+  svgMap.append("path")
       .datum(topojson.feature(us, us.objects.land))
       .attr("class", "land")
       .attr("d", path);
-
-  svg.append("path")
+ 
+  svgMap.append("path")
       .datum(topojson.mesh(us, us.objects.states, function(a, b) { return a !== b; }))
       .attr("class", "states")
       .attr("d", path);
-
-  svg.append("path")
+ 
+  svgMap.append("path")
       .datum({type: "MultiPoint", coordinates: airports})
       .attr("class", "points")
-      .attr("d", path);
+      .attr("d", path)
+      .style('fill', '#bf3d30');
 
-  // svg.append("path")
-//       .datum(d3.geom.voronoi(airports.map(projection)))
-//       .attr("class", "voronoi")
-//       .attr("d", function(d) { return "M" + d.map(function(d) { return d.join("L"); }).join("ZM") + "Z"; });
-}
-
-</script> 
+} 
+</script>
 
 <div class="bar-chart">
-<h2> Fatalities and Injuries </h2>
-<p> BLAH BLAH </p>
+    <h2 class="subtitle">Fatalities and Injuries</h2>
+    <p>Since 1984 there have been 432 deaths and 1871 injuries related to natural gas leaks. These fatalities and injuries usually occur when gas escapes from the pipeline, ignites and causes an explosion. The chart below shows Texas as having the most number of injuries but it should be noted that the state also has the most mileage of natural gas pipelines. </p>
+    <div class="statesChart"></div>
+    <div style="padding-top:25px;">
+ <iframe src="http://s3.datawrapper.de/WHbbD/" frameborder="0" allowtransparency="true" allowfullscreen="allowfullscreen" webkitallowfullscreen="webkitallowfullscreen" mozallowfullscreen="mozallowfullscreen" oallowfullscreen="oallowfullscreen" msallowfullscreen="msallowfullscreen" width="900" height="600"></iframe>   
+</div> </div>
+
+
+<link rel="stylesheet" href="screen.css?v=1.0">
+<link rel="stylesheet" href="stately.css?v=1.0">
+
+<div class='wax-legend'>
+<div class='subtitle'>Leaks by State</div>
+<div class='legend-scale'>
+  <ul class='legend-labels'>
+    <li><span style='background:#62b1d0;'></span>0-10</li>
+    <li><span style='background:#3AA6D0;'></span>10-20</li>
+    <li><span style='background:#0776A0;'></span>20-30</li>
+    <li><span style='background:#226078;'></span>30-50</li>
+    <li><span style='background:#024C68;'></span>50-200</li>
+  </ul>
+</div>
+<div id='label-des'>
+<p> spills per 10,000 miles of pipeline </p> </div>
+<div class='legend-source'>Source: <a href="http://primis.phmsa.dot.gov/comm/reports/safety/sida.html?nocache=1018">Pipeline and Hazardous Materials Safety Administration</a></div>
 </div>
 
-<div id="viz"></div>
+	<ul class="stately" id="election"> 
+		<li data-state="al" class="al">A</li>
+		<li data-state="ak" class="ak">B</li>
+		<li data-state="ar" class="ar">C</li>						
+		<li data-state="az" class="az">D</li>
+		<li data-state="ca" class="ca">E</li>
+		<li data-state="co" class="co">F</li>
+		<li data-state="ct" class="ct">G</li>
+		<li data-state="de" class="de">H</li>
+		<li data-state="dc" class="dc">I</li>
+		<li data-state="fl" class="fl">J</li>
+		<li data-state="ga" class="ga">K</li>
+		<li data-state="hi" class="hi">L</li>
+		<li data-state="id" class="id">M</li>
+		<li data-state="il" class="il">N</li>
+		<li data-state="in" class="in">O</li>
+		<li data-state="ia" class="ia">P</li>
+		<li data-state="ks" class="ks">Q</li>
+		<li data-state="ky" class="ky">R</li>
+		<li data-state="la" class="la">S</li>
+		<li data-state="me" class="me">T</li>
+		<li data-state="md" class="md">U</li>
+		<li data-state="ma" class="ma">V</li>
+		<li data-state="mi" class="mi">W</li>
+		<li data-state="mn" class="mn">X</li>
+		<li data-state="ms" class="ms">Y</li>
+		<li data-state="mo" class="mo">Z</li>
+		<li data-state="mt" class="mt">a</li>
+		<li data-state="ne" class="ne">b</li>
+		<li data-state="nv" class="nv">c</li>
+		<li data-state="nh" class="nh">d</li>
+		<li data-state="nj" class="nj">e</li>
+		<li data-state="nm" class="nm">f</li>
+		<li data-state="ny" class="ny">g</li>
+		<li data-state="nc" class="nc">h</li>
+		<li data-state="nd" class="nd">i</li>
+		<li data-state="oh" class="oh">j</li>			
+		<li data-state="ok" class="ok">k</li>
+		<li data-state="or" class="or">l</li>
+		<li data-state="pa" class="pa">m</li>
+		<li data-state="ri" class="ri">n</li>
+		<li data-state="sc" class="sc">o</li>
+		<li data-state="sd" class="sd">p</li>
+		<li data-state="tn" class="tn">q</li>
+		<li data-state="tx" class="tx">r</li>
+		<li data-state="ut" class="ut">s</li>
+		<li data-state="va" class="va">t</li>
+		<li data-state="vt" class="vt">u</li>			
+		<li data-state="wa" class="wa">v</li>
+		<li data-state="wv" class="wv">w</li>
+		<li data-state="wi" class="wi">x</li>
+		<li data-state="wy" class="wy">y</li>	
+	</ul>
  
-        <script type="text/javascript">
-            
-            var w = 950,
-            h = 600
- 
-            // create canvas
-            var svg = d3.select("#viz").append("svg:svg")
-            .attr("class", "chart")
-            .attr("width", w)
-            .attr("height", h )
-            .append("svg:g")
-            .attr("transform", "translate(10,470)");
-           
- 
-            x = d3.scale.ordinal().rangeRoundBands([0, w-50])
-            y = d3.scale.linear().range([0, h-50])
-            z = d3.scale.ordinal().range(["darkblue", "lightblue"])
- 
-            console.log("RAW MATRIX---------------------------");
-	    // 4 columns: ID,c1,c2
-            var matrix = [
-[1,12,2],
-[2,40,16],
-[3,16,5],
-[4,48,11],
-[5,96,25],
-[6,46,1],
-[7,21,8],
-[8,6,1],
-[9,5,0],
-[10,15,6],
-[11,39,6],
-[12,2,0],
-[13,18,10],
-[14,3,0],
-[15,92,15],
-[16,50,13],
-[17,41,6],
-[18,21,5],
-[19,51,7],
-[20,35,8],
-[21,35,4],
-[22,0,0],
-[23,69,21],
-[24,32,11],
-[25,32,9],
-[26,31,17],
-[27,11,2],
-[28,45,3],
-[29,7,1],
-[30,21,5],
-[31,0,0],
-[32,51,5],
-[33,25,4],
-[34,20,1],
-[35,99,25],
-[36,85,14],
-[37,22,9],
-[38,8,5],
-[39,133,39],
-[40,8,0],
-[41,14,0],
-[42,3,2],
-[43,40,2],
-[44,240,42],
-[45,15,3],
-[46,31,5],
-[47,1,2],
-[48,14,3],
-[49,52,13],
-[50,20,5],
-[51,5,2], 
-            ];
-            console.log(matrix)
- 
-            console.log("REMAP---------------------------");
-            var remapped =["c1","c2"].map(function(dat,i){
-                return matrix.map(function(d,ii){
-                    return {x: ii, y: d[i+1] };
-                })
-            });
-            console.log(remapped)
- 
-            console.log("LAYOUT---------------------------");
-            var stacked = d3.layout.stack()(remapped)
-            console.log(stacked)
- 
-            x.domain(stacked[0].map(function(d) { return d.x; }));
-            y.domain([0, d3.max(stacked[stacked.length - 1], function(d) { return d.y0 + d.y; })]);
-
-  
-            // show the domains of the scales              
-            console.log("x.domain(): " + x.domain())
-            console.log("y.domain(): " + y.domain())
-            console.log("------------------------------------------------------------------");
- 
-            // Add a group for each column.
-            var valgroup = svg.selectAll("g.valgroup")
-            .data(stacked)
-            .enter().append("svg:g")
-            .attr("class", "valgroup")
-            .style("fill", function(d, i) { return z(i); })
-            .style("stroke", function(d, i) { return d3.rgb(z(i)).darker(); });
- 
-            // Add a rect for each date.
-            var rect = valgroup.selectAll("rect")
-            .data(function(d){return d;})
-            .enter().append("svg:rect")
-            .attr("x", function(d) { return x(d.x); })
-            .attr("y", function(d) { return -y(d.y0) - y(d.y); })
-            .attr("height", function(d) { return y(d.y); })
-            .attr("width", x.rangeBand());
-            
-            var x = d3.scale.linear()
-			.domain([0, 20])
-			.range([0, width]);
-
-			var y = d3.scale.linear()
-			.domain([0,100])
-			.range([height,0]);
-            
-            var xAxis = d3.svg.axis()
-			.scale(x)
-			.orient("bottom");
-            
-            var yAxis = d3.svg.axis()
-			.scale(y)
-			.orient("left");
- 
-        </script>
-
-
-
 </div>
+ 
+ </body> </html>

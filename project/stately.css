@@ -2,11 +2,12 @@
 *************************************/
 @font-face {
   font-family: 'stately-webfont';
-  src: url("../font/stately-webfont.eot");
-  src: url("../font/stately-webfont.eot?#iefix") format("embedded-opentype"), url("../font/stately-webfont.woff") format("woff"), url("../font/stately-webfont.ttf") format("truetype"), url("../font/stately-webfont.svg#testfontRegular") format("svg");
+  src: url("stately-webfont.eot");
+  src: url("stately-webfont.eot?#iefix") format("embedded-opentype"), url("stately-webfont.woff") format("woff"), url("stately-webfont.ttf") format("truetype"), url("stately-webfont.svg#testfontRegular") format("svg");
   font-weight: normal;
   font-style: normal;
 }
+
 
 .stately {
   font: normal normal 600px/100% "stately-webfont";
@@ -20,7 +21,7 @@
   -ms-font-feature-settings: "liga" 1;
   -ms-font-feature-settings: "liga", "dlig";
   overflow: hidden;
-  width: 600px;
+  width: 700px;
   display: block;
   margin: 0 auto;
   padding: 0;
@@ -30,7 +31,7 @@
   float: left;
   margin: -20% 0 0 -100%;
   position: relative;
-  left: 101%;
+  left: 100%;
   width: 100%;
   cursor: default;
   -webkit-transition: all 1s ease-in;
@@ -45,10 +46,10 @@
 /** Style customizations
 *************************************/
 .stately {
-  background: #f2f2f2;
-  padding: 20px;
-  border-radius: 10px;
-  border-top: 1px solid #dddddd;
+  background: #00000;
+  width: 800 px
+  height: 500 px;
+  
 }
 
 
@@ -137,7 +138,7 @@ color: #3AA6D0;
     display: block;
     float: left;
     width: 50px;
-    margin-bottom: 6px;
+    margin-bottom: 0px;
     text-align: center;
     font-size: 80%;
     list-style: none;
